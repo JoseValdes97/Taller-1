@@ -1,0 +1,32 @@
+############# tabla de datos
+mes <- c("Ene.","Feb.","Mar.","Abr.","Mayo","Jun.","Jul.","Ago.","Sep.","Oct.","Nov.",
+         "Dic.")
+temp <- c(21,24,32,47,50,59,68,74,62,50,41,30)
+y <- c(185.79,214.47,288.03,424.84,454.68,539.03,621.55,675.06,562.03,452.93,369.95,
+       273.98)
+###########
+fabrica <- data.frame(mes,x,temp)
+fabrica
+attach(fabrica)
+############ estadsiticas basicas
+summary(x)
+summary(temp)
+############### gráfica
+plot(temp,y, pch = 20)
+###########################
+## analisis de regresión
+###########################
+reg_fab <- lm(y ~ temp)
+summary(reg_fab)
+##########
+# predicción para 58
+new_data <- data.frame(temp = 58)
+# un predicción con una confianza y un intervalo
+predict(reg_fab,new_data,
+        level = 0.99, # confianza
+        interval = "prediction")
+##################################
+## beta1 = 10000
+#########################
+library(model)
+beta_test(reg_fab, parm = "temp", alternative = "two.sided", ref.value = 10)
